@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .myClass {
+            width: 100px;
+            height: 100px;
+            background-color: aquamarine;
+        }
+
+        .myClass2 {
+            border: 2px solid red;
+        }
+    </style>
+</head>
+
+<div id="root">
+    <h1 v-show="wantToShow">{{ title }}</h1>
+
+    <h2>Array val</h2>
+    <ul>
+        <li>{{ arrayVal[0] }}</li>
+        <li>{{ arrayVal[1] }}</li>
+        <li>{{ arrayVal[2] }}</li>
+    </ul>
+
+    <!-- ----------------------------------------------------------------------------------------------------------- -->
+    <h2>Object Val</h2>
+    <ul>
+        <li>{{ objectArrayVal[0].name }}</li>
+    </ul>
+
+    <!-- ----------------------------------------------------------------------------------------------------------- -->
+    <h2>Methods</h2>
+    <ul>
+        <li>{{ sayHi("Łukasz") }}</li>
+    </ul>
+
+    <!-- ----------------------------------------------------------------------------------------------------------- -->
+    <h2>Directive</h2>
+    <div v-html="code"></div>
+
+    <!-- ----------------------------------------------------------------------------------------------------------- -->
+    <h2>dataBinding</h2>
+
+    <!--We can use v-bind or :-->
+    <img v-bind:src="myPicture.src" :alt="myPicture.alt">
+
+    <!-- ----------------------------------------------------------------------------------------------------------- -->
+    <h2>Two way data binding</h2>
+    <input type="text" v-model="input">
+    <h3>{{ input }}</h3>
+
+    <!-- ----------------------------------------------------------------------------------------------------------- -->
+    <h2>Events</h2>
+    <!--<button class="btn btn-primary" v-on:click="btnClickAction">Click</button>-->
+    <button class="btn btn-primary" @click="btnClickAction">Click</button>
+
+    <h2>Keyboard events</h2>
+    <input type="text" v-model="keyboardEventInput" v-on:keyup.13="output">
+
+    <!-- ----------------------------------------------------------------------------------------------------------- -->
+    <h2>Computed properties</h2>
+    <div>
+        <button class="btn btn-warning" v-on:click="a++">a++</button>
+        {{ compA }}
+    </div>
+
+    <!-- ----------------------------------------------------------------------------------------------------------- -->
+    <h2>Add remove classes</h2>
+    <div v-bind:class="{ myClass: active, myClass2: active }"></div>
+
+    <!-- ----------------------------------------------------------------------------------------------------------- -->
+    <h2>Css styling</h2>
+    <div v-bind:style="{ backgroundColor: stylesObj.myColor, width: stylesObj.widthVal, height: stylesObj.heightVal }"></div>
+
+    <!-- ----------------------------------------------------------------------------------------------------------- -->
+    <h2>Conditions</h2>
+    <div v-if="active">Hello</div>
+    <div v-else>Hi</div>
+    <div v-if="value == 1">1</div>
+    <div v-else-if="value == 2">{{ value }}</div>
+
+    <!-- ----------------------------------------------------------------------------------------------------------- -->
+    <h2>Dsiply list of items: v-for</h2>
+    <ul>
+        <li v-for="(user, index) in objectArrayVal">{{ index + 1 }}: {{ user.name }}</li>
+    </ul>
+
+    <!-- ----------------------------------------------------------------------------------------------------------- -->
+    <h2>Checkbox</h2>
+    <input type="checkbox" v-model="active">
+    <h3>{{ active }}</h3>
+
+    <!-- ----------------------------------------------------------------------------------------------------------- -->
+    <h2>Radio buttons</h2>
+    <input type="radio" value="male" v-model="gender">
+    <input type="radio" value="female" v-model="gender">
+    <h3>{{ gender }}</h3>
+
+    <!-- ----------------------------------------------------------------------------------------------------------- -->
+    <h2>Selection</h2>
+    <select name="simpleSelect" id="simple" v-model="selection">
+        <option value="empty">empty</option>
+        <option value="female">female</option>
+        <option value="male">male</option>
+    </select>
+    <h3>{{ selection }}</h3>
+
+</div>
+
+<!-- ----------------------------------------------------------------------------------------------------------- -->
+<h2>Vue objects & interaction</h2>
+
+<div id="header">
+    {{ title }}
+</div>
+
+<div id="main">
+    {{ title }}
+    <button class="btn btn-warning" @click="changeHeaderTitle">Change header title</button>
+</div>
+
+<body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: "#root",
+        data: {
+            title: "Hello Vue!",
+            numberVal: 6,
+            booleanVal: true,
+            arrayVal: ["Tim", 27, true],
+            objectArrayVal: [
+                {name: "Łukasz", age: 30},
+                {name: "Tom", age: 12},
+                {name: "Mike", age: 40}
+            ],
+            wantToShow: false,
+            code: "<p>Test</p>",
+            myPicture: {src: "bean_game_of_throne.jpg", alt: "Mr Bean", href: "#"},
+            input: "input value",
+            keyboardEventInput: "",
+            a: 0,
+            active: true,
+            stylesObj: {myColor: "red", widthVal: "100px", heightVal: "200px"},
+            value: 1,
+            gender: "",
+            selection: ""
+        },
+        methods: {
+            sayHi: function(name) {
+                return "Hi " + name + " and " + this.objectArrayVal[1].name;
+            },
+            btnClickAction: function(event) {
+                console.log(event);
+                alert("Click");
+            },
+            output: function() {
+                alert(this.keyboardEventInput * 10);
+            }
+        },
+        computed: {
+            compA: function() {
+                return this.a;
+            }
+        }
+    });
+
+    var vm2 = new Vue({
+        el: "#header",
+        data: {
+            title: "Header title"
+        }
+    });
+
+    var vm3 = new Vue({
+        el: "#main",
+        data: {
+            title: "main"
+        },
+        methods: {
+            changeHeaderTitle: function() {
+                vm2.title = "New Title changed by main component";
+            }
+        }
+    });
+</script>
+</body>
+</html>
