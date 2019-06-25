@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<div id="app" class="container ">
+    <h1>{{ title }}</h1>
+    <posts :data="34"></posts>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+
+    Vue.component('posts', {
+        template: `
+        <div>
+            <ul>
+                <post v-for="post in posts" v-bind:key="post.id">{{ post.title }}</post>
+            </ul>
+        </div>
+        `,
+        data() {
+            return {
+                posts: [
+                    {id: 1, title: 'title 1'},
+                    {id: 2, title: 'title 2'},
+                    {id: 3, title: 'title 3'},
+                    {id: 4, title: 'title 4'},
+                    {id: 5, title: 'title 5'}
+                ]
+            }
+        },
+        methods: {
+            display() {
+                console.log('hello');
+            }
+        }
+    });
+
+    Vue.component('post', {
+        template: '<li><slot></slot></li>',
+    });
+
+    new Vue({
+        el: '#app',
+        data: {
+            title: 'Hello'
+        }
+    });
+</script>
+</body>
+</html>
